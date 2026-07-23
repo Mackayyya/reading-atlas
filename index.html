@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f4f0e8" />
+  <title>读书地图 · Reading Atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="回到读书地图首页"><span class="brand-mark">RA</span><span><strong>读书地图</strong><small>READING ATLAS</small></span></a>
+      <div class="topbar-meta"><span class="live-dot"></span><span id="syncStatus">本地档案已同步</span><span class="separator"></span><span id="dateLabel"></span></div>
+      <button class="outline-button" id="addBookTop"><span>＋</span> 添加书目</button>
+    </header>
+    <section class="intro" id="top"><div><p class="eyebrow">阅读，是一场地理学</p><h1>把读过的世界<br><em>放回地图上。</em></h1></div><p class="intro-copy">记录一本书发生的地点、风土与想象。<br>让每一次翻页，都成为一枚坐标。</p></section>
+    <section class="workspace">
+      <aside class="library-panel panel"><div class="panel-heading"><div><span class="section-label">MY LIBRARY</span><h2>我的书架</h2></div><span class="count-pill" id="bookCount">0</span></div><label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="搜索书名、作者或地点" /></label><div class="filter-row"><button class="filter active" data-filter="全部">全部 <span id="allCount">0</span></button><button class="filter" data-filter="已读">已读 <span id="readCount">0</span></button><button class="filter" data-filter="在读">在读 <span id="readingCount">0</span></button></div><div class="book-list" id="bookList"></div><button class="add-book-link" id="addBookBottom"><span>＋</span> 记录一本新书</button></aside>
+      <section class="map-panel panel"><div class="map-toolbar"><div><span class="section-label">THE WORLD OF BOOKS</span><h2>阅读发生地</h2></div><div class="map-actions"><button class="icon-button" id="zoomOut" title="缩小地图">−</button><button class="icon-button" id="zoomIn" title="放大地图">＋</button><button class="icon-button" id="resetMap" title="重置地图">⌂</button></div></div><div class="map-stage" id="mapStage"><div class="map-grid"></div><div class="latitude latitude-one"></div><div class="latitude latitude-two"></div><div class="latitude latitude-three"></div><svg class="world-shapes" viewBox="0 0 1000 520" preserveAspectRatio="none" aria-label="世界地图轮廓" role="img"><path d="M88 120l28-28 51-9 42 20 20 31-20 25-43-2-15 22-31-16-38 7-18-20zM233 190l38-10 30 24 10 49-19 38-31-21-15-43-21-11zM371 135l34-18 42 7 23 27-27 22-38-2-20 19-30-17zM438 187l34-11 18 31-10 45-26 19-28-27zM501 174l47-34 58 4 25 29 42 9 29 38-19 47-44 8-23 32-51-8-24-31-49-13-11-35zM677 150l36-19 48 9 19 25-25 29-39-4-22-20zM737 225l44-8 38 28-6 39-49 10-34-25zM839 334l38-18 43 15 26 29-23 28-43-5-28-22zM79 350l36-24 53 8 29 35-18 25-43-3-14 23-36-21z" fill="currentColor"/><path class="island" d="M320 325l16-10 11 13-12 20-14-7zM610 337l16-12 17 13-15 21-15-8zM802 301l11-7 11 10-9 15-12-6z"/></svg><div class="map-label label-europe">EUROPE</div><div class="map-label label-asia">ASIA</div><div class="map-label label-africa">AFRICA</div><div class="map-label label-america">AMERICAS</div><div class="markers" id="markers"></div><div class="map-legend"><span><i class="legend-dot"></i> 已读</span><span><i class="legend-dot hollow"></i> 在读</span></div><div class="map-scale"><span>0</span><i></i><span>4,000 km</span></div></div><div class="map-footer"><span><b id="placeCount">0</b> 个阅读地点</span><span class="map-hint">点击地图上的坐标查看书籍</span></div></section>
+      <aside class="detail-panel panel" id="detailPanel"></aside>
+    </section>
+  </main>
+  <dialog id="bookDialog"><form method="dialog" id="bookForm"><div class="dialog-head"><div><span class="section-label">NEW ENTRY</span><h2>记录一本书</h2></div><button type="button" class="close-button" id="closeDialog" aria-label="关闭">×</button></div><div class="form-grid"><label>书名<input name="title" required placeholder="例如：百年孤独" /></label><label>作者<input name="author" required placeholder="例如：加西亚·马尔克斯" /></label><label>地点<input name="place" required placeholder="例如：马孔多，哥伦比亚" /></label><label>状态<select name="status"><option>已读</option><option>在读</option></select></label><label>纬度<input name="lat" type="number" step="any" min="-90" max="90" required placeholder="4.57" /></label><label>经度<input name="lng" type="number" step="any" min="-180" max="180" required placeholder="-74.29" /></label><label class="full-width">一句话记录<textarea name="note" rows="3" placeholder="这本书把我带到了哪里？"></textarea></label></div><div class="form-actions"><button type="button" class="cancel-button" id="cancelDialog">取消</button><button class="submit-button" value="default">保存到地图 <span>→</span></button></div></form></dialog>
+  <script src="app.js"></script>
+</body>
+</html>
