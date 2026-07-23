@@ -25,6 +25,8 @@
     </section>
   </main>
   <dialog id="bookDialog"><form method="dialog" id="bookForm"><div class="dialog-head"><div><span class="section-label">NEW ENTRY</span><h2>记录一本书</h2></div><button type="button" class="close-button" id="closeDialog" aria-label="关闭">×</button></div><div class="form-grid"><label>书名<input name="title" required placeholder="例如：百年孤独" /></label><label>作者<input name="author" required placeholder="例如：加西亚·马尔克斯" /></label><label>地点<input name="place" required placeholder="例如：马孔多，哥伦比亚" /></label><label>状态<select name="status"><option>已读</option><option>在读</option></select></label><label>纬度<input name="lat" type="number" step="any" min="-90" max="90" required placeholder="4.57" /></label><label>经度<input name="lng" type="number" step="any" min="-180" max="180" required placeholder="-74.29" /></label><label class="full-width">一句话记录<textarea name="note" rows="3" placeholder="这本书把我带到了哪里？"></textarea></label></div><div class="form-actions"><button type="button" class="cancel-button" id="cancelDialog">取消</button><button class="submit-button" value="default">保存到地图 <span>→</span></button></div></form></dialog>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
